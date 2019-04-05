@@ -2,13 +2,13 @@ package collector
 
 import "github.com/prometheus/client_golang/prometheus"
 
-type fritzdectCollector struct {
+type fritzdect struct {
 	currentTempMetric *prometheus.Desc
 	desiredTempMetric *prometheus.Desc
 }
 
-func NewFritzDectCollector() (*fritzdectCollector, error) {
-	return &fritzdectCollector{
+func NewFritzDect() (*fritzdect, error) {
+	return &fritzdect{
 		currentTempMetric: prometheus.NewDesc("fritz_dect_temp_current",
 			"Current room temperature measured by thermostat",
 			[]string{"room"}, nil),
@@ -18,11 +18,11 @@ func NewFritzDectCollector() (*fritzdectCollector, error) {
 	}, nil
 }
 
-func (c *fritzdectCollector) Describe(ch chan<- *prometheus.Desc) {
+func (c *fritzdect) Describe(ch chan<- *prometheus.Desc) {
 	prometheus.DescribeByCollect(c, ch)
 }
 
-func (c *fritzdectCollector) Collect(ch chan<- prometheus.Metric) {
+func (c *fritzdect) Collect(ch chan<- prometheus.Metric) {
 	ch <- prometheus.MustNewConstMetric(c.desiredTempMetric, prometheus.GaugeValue, 21.2, "dorm")
 	ch <- prometheus.MustNewConstMetric(c.desiredTempMetric, prometheus.GaugeValue, 15.6, "kitchen")
 

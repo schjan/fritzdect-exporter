@@ -14,7 +14,7 @@ func main() {
 
 	log.Info("Beginning to serve on :8080")
 
-	c, err := collector.NewFritzDectCollector()
+	c, err := collector.NewFritzDect()
 	if err != nil {
 		log.Fatal(err)
 	}
