@@ -4,7 +4,6 @@ import (
 	"encoding/xml"
 	"fmt"
 	"net/http"
-	"net/url"
 )
 
 type Client interface {
@@ -16,7 +15,7 @@ type Client interface {
 
 type client struct {
 	http    http.Client
-	rootUrl url.URL
+	rootUrl string
 }
 
 func New() (*client, error) {
@@ -39,8 +38,14 @@ func (c *client) GetSavingTemperature(ain string) (float32, error) {
 	return 0, nil
 }
 
+func (c *client) login() error {
+	c.getSid()
+
+	return nil
+}
+
 func (c *client) getSid() error {
-	resp, err := http.Get(fmt.Sprintf("%s/login_sid.lua", c.rootUrl.String()))
+	resp, err := http.Get(fmt.Sprintf("%s/login_sid.lua", c.rootUrl))
 	if err != nil {
 		return err
 	}
@@ -59,7 +64,7 @@ func (c *client) getSid() error {
 
 		switch se := t.(type) {
 		case xml.StartElement:
-			if se.Name.Local == "sid" {
+			if se.Name.Local == "SID" {
 
 			}
 		}
