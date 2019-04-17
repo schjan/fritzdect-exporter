@@ -11,7 +11,6 @@ require (
 	github.com/giantswarm/micrologger v0.0.0-20190118112544-0926d9b7c541
 	github.com/giantswarm/versionbundle v0.0.0-20190226071938-1dee14fe97dc // indirect
 	github.com/go-logfmt/logfmt v0.4.0 // indirect
-	github.com/go-resty/resty v1.12.0 // indirect
 	github.com/golang/protobuf v1.3.1 // indirect
 	github.com/gorilla/mux v1.7.1 // indirect
 	github.com/inconshreveable/mousetrap v1.0.0 // indirect
@@ -35,4 +34,4 @@ require (
 	gopkg.in/resty.v1 v1.12.0 // indirect
 )
 
-replace github.com/go-resty/resty => gopkg.in/resty.v1 v1.12.0
+replace github.com/giantswarm/versionbundle => github.com/schjan/versionbundle v0.0.0-20190226071938-3b90ff2c8bbe4fb4bd622c813c93c1fd1dbf7de4

@@ -25,8 +25,6 @@ github.com/giantswarm/microkit v0.0.0-20190226135014-864e4cc9c806 h1:GAV8WI4CI2s
 github.com/giantswarm/microkit v0.0.0-20190226135014-864e4cc9c806/go.mod h1:y/zU2Vjkl4j0giDU9DzGDdn6xI1GvK6bOftcGZUQpT8=
 github.com/giantswarm/micrologger v0.0.0-20190118112544-0926d9b7c541 h1:FFIytfpzwoorYU6DkmgVfS3kqoAoQNzOsXx7wW5FsXA=
 github.com/giantswarm/micrologger v0.0.0-20190118112544-0926d9b7c541/go.mod h1:2O9GG1AfKI8px8oseWx+TTD6A6aEdUo16ZjAKv2wOVk=
-github.com/giantswarm/versionbundle v0.0.0-20190226071938-1dee14fe97dc h1:KAY4HjFZPLjGl2GoG5svPUlOOBjYyJfl/Hl+vCCQ9nA=
-github.com/giantswarm/versionbundle v0.0.0-20190226071938-1dee14fe97dc/go.mod h1:SGB4Cj6Lze0NSHW3jfNPWdpdHAy8Owcmk7qqgrOpTtc=
 github.com/go-kit/kit v0.8.0 h1:Wz+5lgoB0kkuqLEc6NVmwRknTKP6dTGbSqvhZtBI/j0=
 github.com/go-kit/kit v0.8.0/go.mod h1:xBxKIO96dXMWWy0MnWVtmwkA9/13aqxPnvrjFYMA2as=
 github.com/go-logfmt/logfmt v0.3.0/go.mod h1:Qt1PoO58o5twSAckw1HlFXLmHsOX5/0LbT9GBnD5lWE=
@@ -87,6 +85,8 @@ github.com/prometheus/procfs v0.0.0-20181204211112-1dc9a6cbc91a h1:9a8MnZMP0X2nL
 github.com/prometheus/procfs v0.0.0-20181204211112-1dc9a6cbc91a/go.mod h1:c3At6R/oaqEKCNdg8wHV1ftS6bRYblBhIjjI8uT2IGk=
 github.com/prometheus/procfs v0.0.0-20190416084830-8368d24ba045 h1:Raos9GP+3BlCBicScEQ+SjTLpYYac34fZMoeqj9McSM=
 github.com/prometheus/procfs v0.0.0-20190416084830-8368d24ba045/go.mod h1:TjEm7ze935MbeOT/UhFTIMYKhuLP4wbCsTZCD3I8kEA=
+github.com/schjan/versionbundle v0.0.0-20190226071938-3b90ff2c8bbe4fb4bd622c813c93c1fd1dbf7de4 h1:BwKovyI9kv93vRjcmpD7TXehGRyTPXQTY/CFgds8XIg=
+github.com/schjan/versionbundle v0.0.0-20190226071938-3b90ff2c8bbe4fb4bd622c813c93c1fd1dbf7de4/go.mod h1:ZJdjFrFVjcgyrPWkmYOcpr0ksckZ+CHQBPeKVoO4/ns=
 github.com/sirupsen/logrus v1.2.0/go.mod h1:LxeOpSwHxABJmUn/MG1IvRgCAasNZTLOkJPxbbu5VWo=
 github.com/spf13/afero v1.1.2/go.mod h1:j4pytiNVoe2o6bmDsKpLACNPDBIoEAkihy7loJ1B0CQ=
 github.com/spf13/afero v1.2.2 h1:5jhuqJyZCZf2JRofRvN/nIFgIWNzPa3/Vz8mYylgbWc=
