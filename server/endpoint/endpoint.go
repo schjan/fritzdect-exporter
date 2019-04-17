@@ -10,8 +10,8 @@ import (
 // Config represents the configuration used to create a endpoint.
 type Config struct {
 	// Dependencies.
-	Logger     micrologger.Logger
-	Service    *service.Service
+	Logger  micrologger.Logger
+	Service *service.Service
 }
 
 // DefaultConfig provides a default configuration to create a new endpoint by
@@ -19,8 +19,8 @@ type Config struct {
 func DefaultConfig() Config {
 	return Config{
 		// Dependencies.
-		Logger:     nil,
-		Service:    nil,
+		Logger:  nil,
+		Service: nil,
 	}
 }
 

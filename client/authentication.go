@@ -13,7 +13,7 @@ type SessionInfo struct {
 	Text      string   `xml:",chardata"`
 	SID       string   `xml:"SID"`
 	Challenge string   `xml:"Challenge"`
-	BlockTime string   `xml:"BlockTime"`
+	BlockTime int      `xml:"BlockTime"`
 	Rights    string   `xml:"Rights"`
 }
 
@@ -54,6 +54,16 @@ func (c *client) getSessionInfo() (*SessionInfo, error) {
 		return nil, err
 	}
 
+	if sess.BlockTime > 0 {
+		return &SessionInfo{
+			BlockTime: sess.BlockTime,
+		}, unauthenticatedError
+	}
+
+	if sess.SID == unauthenticatedSid {
+		return nil, unauthenticatedError
+	}
+
 	return &sess, nil
 }
 
@@ -86,10 +96,15 @@ func (c *client) authenticate(challenge string) (*SessionInfo, error) {
 		return nil, err
 	}
 
+	if sess.BlockTime > 0 {
+		return &SessionInfo{
+			BlockTime: sess.BlockTime,
+		}, unauthenticatedError
+	}
+
 	if sess.SID == unauthenticatedSid {
 		return nil, unauthenticatedError
 	}
 
 	return &sess, nil
 }
-
