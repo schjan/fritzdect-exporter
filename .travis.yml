@@ -1,0 +1,13 @@
+language: go
+
+go: 1.12.x
+
+install: true
+
+script:
+  - GO111MODULE=on go test -v -bench=. -cover -benchmem  ./...
+
+cache:
+  directories:
+    - $HOME/.cache/go-build
+    - $HOME/gopath/pkg/mod
