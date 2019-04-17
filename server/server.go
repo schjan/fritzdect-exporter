@@ -74,8 +74,7 @@ func New(config Config) (*Server, error) {
 			Viper:       config.Viper,
 
 			Endpoints: []microserver.Endpoint{
-				//TODO healthz
-				//endpointCollection.Healthz,
+				endpointCollection.Healthz,
 				endpointCollection.Version,
 			},
 			ErrorEncoder: errorEncoder,

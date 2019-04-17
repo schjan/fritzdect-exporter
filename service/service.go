@@ -5,6 +5,8 @@ import (
 	"github.com/giantswarm/microendpoint/service/version"
 	"github.com/giantswarm/microerror"
 	"github.com/giantswarm/micrologger"
+	"github.com/schjan/fritzdect-exporter/client"
+	"github.com/schjan/fritzdect-exporter/collector"
 	"github.com/schjan/fritzdect-exporter/flag"
 	"github.com/spf13/viper"
 	"sync"
@@ -32,15 +34,8 @@ type Service struct {
 	// Internals.
 	bootOnce sync.Once
 
-	//parameterController *controller.Parameter
-	//syncService         paramsync.Service
-}
-
-func (s *Service) Boot(ctx context.Context) {
-	s.bootOnce.Do(func() {
-		//go s.parameterController.Boot(ctx)
-		//go s.syncService.Boot(ctx)
-	})
+	client    client.Client
+	collector collector.Collector
 }
 
 // New creates a new configured service object.
@@ -60,6 +55,36 @@ func New(config Config) (*Service, error) {
 
 	var err error
 
+	var newClient client.Client
+	{
+		c := client.Config{
+			Url:      config.Viper.GetString(config.Flag.Service.FritzBox.Url),
+			Username: config.Viper.GetString(config.Flag.Service.FritzBox.User.Name),
+			Password: config.Viper.GetString(config.Flag.Service.FritzBox.User.Password),
+
+			Logger: config.Logger,
+		}
+
+		newClient, err = client.New(c)
+		if err != nil {
+			return nil, microerror.Mask(err)
+		}
+	}
+
+	var newCollector collector.Collector
+	{
+		c := collector.Config{
+			Logger: config.Logger,
+
+			Client: newClient,
+		}
+
+		newCollector, err = collector.New(c)
+		if err != nil {
+			return nil, microerror.Mask(err)
+		}
+	}
+
 	var versionService *version.Service
 	{
 		versionConfig := version.Config{
@@ -76,8 +101,17 @@ func New(config Config) (*Service, error) {
 	}
 
 	s := &Service{
-		Version: versionService,
+		Version:   versionService,
+		client:    newClient,
+		collector: newCollector,
 	}
 
 	return s, nil
+}
+
+func (s *Service) Boot(ctx context.Context) {
+	s.bootOnce.Do(func() {
+		//go s.parameterController.Boot(ctx)
+		//go s.syncService.Boot(ctx)
+	})
 }

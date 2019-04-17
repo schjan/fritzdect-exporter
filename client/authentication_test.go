@@ -7,12 +7,13 @@ import (
 	"testing"
 )
 
-func TestSolveChallenge(t *testing.T) {
+func TestSolveChallengeWithUsername(t *testing.T) {
 	challenge := "1fa9f255"
 	expected := "1fa9f255-4ab017a7f5667a9fadf87380e6c484a7"
 
 	server := httptest.NewServer(http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
 		assert.Contains(t, req.RequestURI, expected)
+		assert.Contains(t, req.RequestURI, "username=testuser")
 
 		rw.Write([]byte(
 			`<SessionInfo>
@@ -25,7 +26,37 @@ func TestSolveChallenge(t *testing.T) {
 	defer server.Close()
 
 	c := client{
-		rootUrl:  server.URL,
+		url:      server.URL,
+		username: "testuser",
+		password: "kaese0815",
+		http:     server.Client(),
+	}
+
+	info, err := c.authenticate(challenge)
+	assert.NoError(t, err)
+	assert.Equal(t, "1234567890123456", info.SID)
+}
+
+func TestSolveChallenge(t *testing.T) {
+	challenge := "1fa9f255"
+	expected := "1fa9f255-4ab017a7f5667a9fadf87380e6c484a7"
+
+	server := httptest.NewServer(http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
+		assert.Contains(t, req.RequestURI, expected)
+		assert.NotContains(t, req.RequestURI, "username=")
+
+		rw.Write([]byte(
+			`<SessionInfo>
+		<SID>1234567890123456</SID>
+		<Challenge>951d45a8</Challenge>
+		<BlockTime>0</BlockTime>
+		<Rights/>
+		</SessionInfo>`))
+	}))
+	defer server.Close()
+
+	c := client{
+		url:      server.URL,
 		password: "kaese0815",
 		http:     server.Client(),
 	}
@@ -53,7 +84,7 @@ func TestWrongPassword(t *testing.T) {
 	defer server.Close()
 
 	c := client{
-		rootUrl:  server.URL,
+		url:      server.URL,
 		password: "kaese0815",
 		http:     server.Client(),
 	}
@@ -81,7 +112,7 @@ func TestBlocked(t *testing.T) {
 	defer server.Close()
 
 	c := client{
-		rootUrl:  server.URL,
+		url:      server.URL,
 		password: "kaese0815",
 		http:     server.Client(),
 	}

@@ -38,7 +38,7 @@ func (c *client) login() error {
 }
 
 func (c *client) getSessionInfo() (*SessionInfo, error) {
-	resp, err := c.http.Get(fmt.Sprintf("%s/login_sid.lua", c.rootUrl))
+	resp, err := c.http.Get(fmt.Sprintf("%s/login_sid.lua", c.url))
 	if err != nil {
 		return nil, err
 	}
@@ -76,10 +76,14 @@ func (c *client) authenticate(challenge string) (*SessionInfo, error) {
 	}
 	hash := md5.Sum(result)
 
-	//todo add username if set
-	req := fmt.Sprintf("%s/login_sid.lua?response=%s-%x", c.rootUrl, challenge, hash)
+	var request string
+	if c.username != "" {
+		request = fmt.Sprintf("%s/login_sid.lua?username=%s&response=%s-%x", c.url, c.username, challenge, hash)
+	} else {
+		request = fmt.Sprintf("%s/login_sid.lua?response=%s-%x", c.url, challenge, hash)
+	}
 
-	resp, err := c.http.Get(req)
+	resp, err := c.http.Get(request)
 	if err != nil {
 		return nil, err
 	}

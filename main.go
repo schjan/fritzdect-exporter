@@ -116,11 +116,4 @@ func mainErr() error {
 	daemonCommand.PersistentFlags().String(f.Service.FritzBox.User.Password, "", "FritzBox password.")
 
 	return newCommand.CobraCommand().Execute()
-
-	//c, err := collector.NewFritzDect()
-	//if err != nil {
-	//	return err
-	//}
-	//
-	//prometheus.MustRegister(c)
 }
