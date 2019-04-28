@@ -6,8 +6,8 @@ import (
 	"github.com/giantswarm/microerror"
 	"github.com/giantswarm/micrologger"
 	"github.com/schjan/fritzdect-exporter/client"
-	"github.com/schjan/fritzdect-exporter/collector"
 	"github.com/schjan/fritzdect-exporter/flag"
+	"github.com/schjan/fritzdect-exporter/service/collector"
 	"github.com/spf13/viper"
 	"sync"
 )
