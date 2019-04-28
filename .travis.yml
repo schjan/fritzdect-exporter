@@ -5,7 +5,7 @@ go: 1.12.x
 install: true
 
 script:
-  - GO111MODULE=on go test -v -bench=. -cover -benchmem  ./...
+  - GO111MODULE=on go test -v -bench=. -cover -benchmem -race  ./...
 
 cache:
   directories:
