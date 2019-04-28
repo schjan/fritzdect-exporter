@@ -5,6 +5,7 @@ go 1.12
 require (
 	github.com/beorn7/perks v1.0.0 // indirect
 	github.com/coreos/go-semver v0.3.0 // indirect
+	github.com/giantswarm/exporterkit v0.0.0-20190402083839-3c367b3fab44
 	github.com/giantswarm/microendpoint v0.0.0-20180904075734-f77c569259ae
 	github.com/giantswarm/microerror v0.0.0-20190206215454-dc32fd459f94
 	github.com/giantswarm/microkit v0.0.0-20190226135014-864e4cc9c806
@@ -22,7 +23,7 @@ require (
 	github.com/prometheus/common v0.3.0 // indirect
 	github.com/prometheus/procfs v0.0.0-20190425082905-87a4384529e0 // indirect
 	github.com/spf13/afero v1.2.2 // indirect
-	github.com/spf13/cobra v0.0.3 // indirect
+	github.com/spf13/cobra v0.0.3
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
 	github.com/spf13/viper v1.3.2
 	github.com/stretchr/testify v1.3.0

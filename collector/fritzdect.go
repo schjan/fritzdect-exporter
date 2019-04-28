@@ -8,16 +8,13 @@ import (
 	"sync"
 )
 
-type Config struct {
+type FritzDectConfig struct {
 	// Dependencies.
 	Logger micrologger.Logger
 	Client client.Client
 }
 
-type Collector interface {
-}
-
-type fritzdect struct {
+type FritzDectCollector struct {
 	client client.Client
 
 	// Internals.
@@ -27,8 +24,17 @@ type fritzdect struct {
 	desiredTempMetric *prometheus.Desc
 }
 
-func New(config Config) (*fritzdect, error) {
-	collector := &fritzdect{
+func NewFritzDectCollector(config FritzDectConfig) (*FritzDectCollector, error) {
+	if config.Logger == nil {
+		return nil, microerror.Maskf(invalidConfigError, "%T.Logger must not be empty", config)
+	}
+	if config.Client == nil {
+		return nil, microerror.Maskf(invalidConfigError, "%T.Client must not be empty", config)
+	}
+
+	collector := FritzDectCollector{
+		client: config.Client,
+
 		currentTempMetric: prometheus.NewDesc("fritz_dect_temp_current",
 			"Current room temperature measured by thermostat",
 			[]string{"room"}, nil),
@@ -37,22 +43,22 @@ func New(config Config) (*fritzdect, error) {
 			[]string{"room"}, nil),
 	}
 
-	err := prometheus.Register(collector)
-	if err != nil {
-		return nil, microerror.Mask(err)
-	}
-
-	return collector, nil
+	return &collector, nil
 }
 
-func (c *fritzdect) Describe(ch chan<- *prometheus.Desc) {
-	prometheus.DescribeByCollect(c, ch)
+func (c *FritzDectCollector) Describe(ch chan<- *prometheus.Desc) error {
+	ch <- c.desiredTempMetric
+	ch <- c.currentTempMetric
+
+	return nil
 }
 
-func (c *fritzdect) Collect(ch chan<- prometheus.Metric) {
+func (c *FritzDectCollector) Collect(ch chan<- prometheus.Metric) error {
 	ch <- prometheus.MustNewConstMetric(c.desiredTempMetric, prometheus.GaugeValue, 21.2, "dorm")
 	ch <- prometheus.MustNewConstMetric(c.desiredTempMetric, prometheus.GaugeValue, 15.6, "kitchen")
 
 	ch <- prometheus.MustNewConstMetric(c.currentTempMetric, prometheus.GaugeValue, 25, "dorm")
 	ch <- prometheus.MustNewConstMetric(c.currentTempMetric, prometheus.GaugeValue, 18, "kitchen")
+
+	return nil
 }

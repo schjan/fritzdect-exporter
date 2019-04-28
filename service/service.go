@@ -32,10 +32,8 @@ type Service struct {
 	Version *version.Service
 
 	// Internals.
-	bootOnce sync.Once
-
-	client    client.Client
-	collector collector.Collector
+	bootOnce          sync.Once
+	exporterCollector *collector.Set
 }
 
 // New creates a new configured service object.
@@ -71,15 +69,14 @@ func New(config Config) (*Service, error) {
 		}
 	}
 
-	var newCollector collector.Collector
+	var exporterCollector *collector.Set
 	{
-		c := collector.Config{
+		c := collector.SetConfig{
 			Logger: config.Logger,
-
 			Client: newClient,
 		}
 
-		newCollector, err = collector.New(c)
+		exporterCollector, err = collector.NewSet(c)
 		if err != nil {
 			return nil, microerror.Mask(err)
 		}
@@ -101,9 +98,8 @@ func New(config Config) (*Service, error) {
 	}
 
 	s := &Service{
-		Version:   versionService,
-		client:    newClient,
-		collector: newCollector,
+		Version:           versionService,
+		exporterCollector: exporterCollector,
 	}
 
 	return s, nil
@@ -111,7 +107,6 @@ func New(config Config) (*Service, error) {
 
 func (s *Service) Boot(ctx context.Context) {
 	s.bootOnce.Do(func() {
-		//go s.parameterController.Boot(ctx)
-		//go s.syncService.Boot(ctx)
+		go s.exporterCollector.Boot(ctx)
 	})
 }
