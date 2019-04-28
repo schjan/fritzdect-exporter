@@ -7,6 +7,16 @@ import (
 	"testing"
 )
 
+func TestHashPwd(t *testing.T) {
+	challenge := "1fa9f255"
+	pwd := "kaese0815"
+	expected := "1fa9f255-4ab017a7f5667a9fadf87380e6c484a7"
+
+	res := hashPwd(challenge, pwd)
+
+	assert.Equal(t, expected, res)
+}
+
 func TestSolveChallengeWithUsername(t *testing.T) {
 	challenge := "1fa9f255"
 	expected := "1fa9f255-4ab017a7f5667a9fadf87380e6c484a7"
@@ -43,6 +53,7 @@ func TestSolveChallenge(t *testing.T) {
 
 	server := httptest.NewServer(http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
 		assert.Contains(t, req.RequestURI, expected)
+		assert.Contains(t, req.RequestURI, "login_sid.lua")
 		assert.NotContains(t, req.RequestURI, "username=")
 
 		rw.Write([]byte(

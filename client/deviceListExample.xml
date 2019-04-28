@@ -1,0 +1,55 @@
+<devicelist version="1">
+    <device identifier="01234 1234567" id="16" functionbitmask="320" fwversion="04.88" manufacturer="AVM"
+            productname="FRITZ!DECT 301">
+        <present>1</present>
+        <name>Wohnzimmer</name>
+        <temperature>
+            <celsius>220</celsius>
+            <offset>0</offset>
+        </temperature>
+        <hkr>
+            <tist>44</tist>
+            <tsoll>36</tsoll>
+            <absenk>36</absenk>
+            <komfort>44</komfort>
+            <lock>0</lock>
+            <devicelock>0</devicelock>
+            <errorcode>0</errorcode>
+            <batterylow>0</batterylow>
+            <windowopenactiv>0</windowopenactiv>
+            <battery>90</battery>
+            <nextchange>
+                <endperiod>1556510400</endperiod>
+                <tchange>44</tchange>
+            </nextchange>
+            <summeractive>0</summeractive>
+            <holidayactive>0</holidayactive>
+        </hkr>
+    </device>
+    <group identifier="AA:AA:AA-001" id="001" functionbitmask="4160" fwversion="1.0" manufacturer="AVM" productname="">
+        <present>1</present>
+        <name>Wohnung</name>
+        <hkr>
+            <tist>0</tist>
+            <tsoll>44</tsoll>
+            <absenk>36</absenk>
+            <komfort>44</komfort>
+            <lock>0</lock>
+            <devicelock>0</devicelock>
+            <errorcode>0</errorcode>
+            <batterylow>0</batterylow>
+            <windowopenactiv>0</windowopenactiv>
+            <battery>1</battery>
+            <nextchange>
+                <endperiod>1556510400</endperiod>
+                <tchange>44</tchange>
+            </nextchange>
+            <summeractive>0</summeractive>
+            <holidayactive>0</holidayactive>
+        </hkr>
+        <groupinfo>
+            <masterdeviceid>0</masterdeviceid>
+            <members>16</members>
+        </groupinfo>
+    </group>
+</devicelist>

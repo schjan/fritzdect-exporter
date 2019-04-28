@@ -4,7 +4,7 @@ import (
 	"crypto/md5"
 	"encoding/xml"
 	"fmt"
-	"io/ioutil"
+	"gopkg.in/resty.v1"
 	"unicode/utf16"
 )
 
@@ -16,6 +16,10 @@ type SessionInfo struct {
 	BlockTime int      `xml:"BlockTime"`
 	Rights    string   `xml:"Rights"`
 }
+
+const (
+	loginSidUrl = "login_sid.lua"
+)
 
 func (c *client) login() error {
 	info, err := c.getSessionInfo()
@@ -38,18 +42,13 @@ func (c *client) login() error {
 }
 
 func (c *client) getSessionInfo() (*SessionInfo, error) {
-	resp, err := c.http.Get(fmt.Sprintf("%s/login_sid.lua", c.url))
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-	bts, err := ioutil.ReadAll(resp.Body)
+	resp, err := c.r().Get(loginSidUrl)
 	if err != nil {
 		return nil, err
 	}
 
 	var sess SessionInfo
-	err = xml.Unmarshal(bts, &sess)
+	err = xml.Unmarshal(resp.Body(), &sess)
 	if err != nil {
 		return nil, err
 	}
@@ -68,34 +67,18 @@ func (c *client) getSessionInfo() (*SessionInfo, error) {
 }
 
 func (c *client) authenticate(challenge string) (*SessionInfo, error) {
-	challengeStr := utf16.Encode([]rune(challenge + "-" + c.password))
-	result := make([]byte, len(challengeStr)*2)
-	for i, c := range challengeStr {
-		result[i*2] = byte(c)
-		result[i*2+1] = byte(c >> 8)
-	}
-	hash := md5.Sum(result)
-
-	var request string
+	r := c.r().SetQueryParam("response", hashPwd(challenge, c.password))
 	if c.username != "" {
-		request = fmt.Sprintf("%s/login_sid.lua?username=%s&response=%s-%x", c.url, c.username, challenge, hash)
-	} else {
-		request = fmt.Sprintf("%s/login_sid.lua?response=%s-%x", c.url, challenge, hash)
+		r = r.SetQueryParam("username", c.username)
 	}
 
-	resp, err := c.http.Get(request)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-
-	bts, err := ioutil.ReadAll(resp.Body)
+	resp, err := r.Get(loginSidUrl)
 	if err != nil {
 		return nil, err
 	}
 
 	var sess SessionInfo
-	err = xml.Unmarshal(bts, &sess)
+	err = xml.Unmarshal(resp.Body(), &sess)
 	if err != nil {
 		return nil, err
 	}
@@ -110,5 +93,30 @@ func (c *client) authenticate(challenge string) (*SessionInfo, error) {
 		return nil, unauthenticatedError
 	}
 
+	c.sid = sess.SID
+
 	return &sess, nil
+}
+
+func hashPwd(challenge, password string) string {
+	challengeStr := utf16.Encode([]rune(challenge + "-" + password))
+	result := make([]byte, len(challengeStr)*2)
+	for i, c := range challengeStr {
+		result[i*2] = byte(c)
+		result[i*2+1] = byte(c >> 8)
+	}
+	hash := md5.Sum(result)
+
+	return fmt.Sprintf("%s-%x", challenge, hash)
+}
+
+func (c *client) r() *resty.Request {
+	r := resty.NewWithClient(c.http).
+		SetHostURL(c.url)
+
+	if c.sid != "" {
+		r.SetQueryParam("sid", c.sid)
+	}
+
+	return r.R()
 }

@@ -24,13 +24,19 @@ type Client interface {
 
 const (
 	unauthenticatedSid = "0000000000000000"
+
+
 )
 
 type client struct {
+	logger micrologger.Logger
+
 	http     *http.Client
 	url      string
 	username string // username if user based access is activated
 	password string
+
+	sid string
 }
 
 func New(config Config) (*client, error) {
@@ -50,24 +56,10 @@ func New(config Config) (*client, error) {
 	s := &client{
 		http: http.DefaultClient,
 
-		url: config.Url,
+		url:      config.Url,
+		username: config.Username,
+		password: config.Password,
 	}
 
 	return s, nil
-}
-
-func (c *client) GetDesiredTemperature(ain string) (float32, error) {
-	return 0, nil
-}
-
-func (c *client) GetCurrentTemperature(ain string) (float32, error) {
-	return 0, nil
-}
-
-func (c *client) GetComfortTemperature(ain string) (float32, error) {
-	return 0, nil
-}
-
-func (c *client) GetSavingTemperature(ain string) (float32, error) {
-	return 0, nil
 }
