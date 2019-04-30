@@ -15,22 +15,6 @@ const (
 	switchCmd             = "switchcmd"
 )
 
-func (c *client) GetDesiredTemperature(ain string) (float32, error) {
-	return 0, nil
-}
-
-func (c *client) GetCurrentTemperature(ain string) (float32, error) {
-	return 0, nil
-}
-
-func (c *client) GetComfortTemperature(ain string) (float32, error) {
-	return 0, nil
-}
-
-func (c *client) GetSavingTemperature(ain string) (float32, error) {
-	return 0, nil
-}
-
 func (c *client) GetDeviceListInfos() (*DeviceListInfo, error) {
 	resp, err := c.r().
 		SetQueryParam(switchCmd, getDeviceListInfosCmd).

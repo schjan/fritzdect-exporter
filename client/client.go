@@ -16,16 +16,13 @@ type Config struct {
 }
 
 type Client interface {
-	GetDesiredTemperature(ain string) (float32, error)
-	GetCurrentTemperature(ain string) (float32, error)
-	GetComfortTemperature(ain string) (float32, error)
-	GetSavingTemperature(ain string) (float32, error)
+	Login() error
+
+	GetDeviceListInfos() (*DeviceListInfo, error)
 }
 
 const (
 	unauthenticatedSid = "0000000000000000"
-
-
 )
 
 type client struct {

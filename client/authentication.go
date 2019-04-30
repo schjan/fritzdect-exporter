@@ -21,10 +21,12 @@ const (
 	loginSidUrl = "login_sid.lua"
 )
 
-func (c *client) login() error {
+func (c *client) Login() error {
 	info, err := c.getSessionInfo()
 	if err != nil {
-		return err
+		if !IsUnauthenticated(err) {
+			return err
+		}
 	}
 
 	if info.SID != unauthenticatedSid {
@@ -60,7 +62,7 @@ func (c *client) getSessionInfo() (*SessionInfo, error) {
 	}
 
 	if sess.SID == unauthenticatedSid {
-		return nil, unauthenticatedError
+		return &sess, unauthenticatedError
 	}
 
 	return &sess, nil

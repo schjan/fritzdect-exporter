@@ -16,23 +16,23 @@ type DeviceListInfo struct {
 		Productname     string `xml:"productname,attr"`
 		Present         string `xml:"present"`
 		Name            string `xml:"name"`
-		Temperature     struct {
+		Temperature     *struct {
 			Text    string `xml:",chardata"`
-			Celsius int `xml:"celsius"`
-			Offset  int `xml:"offset"`
+			Celsius int    `xml:"celsius"`
+			Offset  int    `xml:"offset"`
 		} `xml:"temperature"`
 		Hkr struct {
 			Text            string `xml:",chardata"`
-			Tist            string `xml:"tist"`
-			Tsoll           string `xml:"tsoll"`
-			Absenk          string `xml:"absenk"`
-			Komfort         string `xml:"komfort"`
+			Tist            int    `xml:"tist"`
+			Tsoll           int    `xml:"tsoll"`
+			Absenk          int    `xml:"absenk"`
+			Komfort         int    `xml:"komfort"`
 			Lock            string `xml:"lock"`
 			Devicelock      string `xml:"devicelock"`
 			Errorcode       string `xml:"errorcode"`
 			Batterylow      string `xml:"batterylow"`
 			Windowopenactiv string `xml:"windowopenactiv"`
-			Battery         string `xml:"battery"`
+			Battery         int    `xml:"battery"`
 			Nextchange      struct {
 				Text      string `xml:",chardata"`
 				Endperiod string `xml:"endperiod"`
@@ -79,4 +79,3 @@ type DeviceListInfo struct {
 		} `xml:"groupinfo"`
 	} `xml:"group"`
 }
-

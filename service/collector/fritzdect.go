@@ -22,6 +22,7 @@ type FritzDectCollector struct {
 
 	currentTempMetric *prometheus.Desc
 	desiredTempMetric *prometheus.Desc
+	batteryMetric     *prometheus.Desc
 }
 
 func NewFritzDectCollector(config FritzDectConfig) (*FritzDectCollector, error) {
@@ -37,10 +38,13 @@ func NewFritzDectCollector(config FritzDectConfig) (*FritzDectCollector, error) 
 
 		currentTempMetric: prometheus.NewDesc("fritz_dect_temp_current",
 			"Current room temperature measured by thermostat",
-			[]string{"room"}, nil),
+			[]string{"name"}, nil),
 		desiredTempMetric: prometheus.NewDesc("fritz_dect_temp_desired",
 			"Desired temperature of thermostat",
-			[]string{"room"}, nil),
+			[]string{"name"}, nil),
+		batteryMetric: prometheus.NewDesc("fritz_dect_batterycharge",
+			"Remaining battery charge of device",
+			[]string{"name"}, nil),
 	}
 
 	return &collector, nil
@@ -49,16 +53,35 @@ func NewFritzDectCollector(config FritzDectConfig) (*FritzDectCollector, error) 
 func (c *FritzDectCollector) Describe(ch chan<- *prometheus.Desc) error {
 	ch <- c.desiredTempMetric
 	ch <- c.currentTempMetric
+	ch <- c.batteryMetric
 
 	return nil
 }
 
 func (c *FritzDectCollector) Collect(ch chan<- prometheus.Metric) error {
-	ch <- prometheus.MustNewConstMetric(c.desiredTempMetric, prometheus.GaugeValue, 21.2, "dorm")
-	ch <- prometheus.MustNewConstMetric(c.desiredTempMetric, prometheus.GaugeValue, 15.6, "kitchen")
+	i, err := c.client.GetDeviceListInfos()
+	if err != nil {
+		if client.IsUnauthenticated(err) {
+			err = c.client.Login()
+			if err != nil {
+				return microerror.Maskf(err, "was unauthenticated, tried to login, that failed")
+			}
+			i, err = c.client.GetDeviceListInfos()
+			if err != nil {
+				return microerror.Mask(err)
+			}
+		} else {
+			return microerror.Mask(err)
+		}
+	}
 
-	ch <- prometheus.MustNewConstMetric(c.currentTempMetric, prometheus.GaugeValue, 25, "dorm")
-	ch <- prometheus.MustNewConstMetric(c.currentTempMetric, prometheus.GaugeValue, 18, "kitchen")
+	for _, d := range i.Device {
+		if d.Temperature != nil {
+			ch <- prometheus.MustNewConstMetric(c.currentTempMetric, prometheus.GaugeValue, client.TemperatureToFloat(d.Temperature.Celsius+d.Temperature.Offset), d.Name)
+			ch <- prometheus.MustNewConstMetric(c.desiredTempMetric, prometheus.GaugeValue, client.WeirdTemperatureToFloat(d.Hkr.Tsoll), d.Name)
+			ch <- prometheus.MustNewConstMetric(c.batteryMetric, prometheus.GaugeValue, float64(d.Hkr.Battery), d.Name)
+		}
+	}
 
 	return nil
 }

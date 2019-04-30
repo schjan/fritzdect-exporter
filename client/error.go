@@ -9,7 +9,7 @@ var unauthenticatedError = microerror.New("unauthenticated")
 var invalidConfigError = microerror.New("invalid config")
 
 func IsUnauthenticated(err error) bool {
-	return err == unauthenticatedError
+	return microerror.Cause(err) == unauthenticatedError
 }
 
 // IsInvalidConfig asserts invalidConfigError.
