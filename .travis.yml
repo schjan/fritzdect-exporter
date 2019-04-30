@@ -2,10 +2,29 @@ language: go
 
 go: 1.12.x
 
+services:
+  - docker
+
+addons:
+  apt:
+    packages:
+      - docker-ce
+
+env:
+  - DOCKER_CLI_EXPERIMENTAL=enabled
+    IMAGE=quay.io/schjan/fritzdect-exporter
+
 install: true
 
 script:
   - GO111MODULE=on go test -v -bench=. -cover -benchmem -race  ./...
+
+deploy:
+  provider: script
+  script: bash deploy.sh
+  skip_cleanup: true
+  on:
+    branch: master
 
 cache:
   directories:
