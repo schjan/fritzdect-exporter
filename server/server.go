@@ -69,9 +69,10 @@ func New(config Config) (*Server, error) {
 		// Internals.
 		bootOnce: sync.Once{},
 		config: microserver.Config{
-			Logger:      config.Logger,
-			ServiceName: config.ProjectName,
-			Viper:       config.Viper,
+			Logger:        config.Logger,
+			ServiceName:   config.ProjectName,
+			Viper:         config.Viper,
+			ListenAddress: "http://0.0.0.0:8000",
 
 			Endpoints: []microserver.Endpoint{
 				endpointCollection.Healthz,
