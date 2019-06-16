@@ -8,6 +8,6 @@ docker build . -t $IMAGE:arm32v6 --build-arg opts="CGO_ENABLED=0 GOOS=linux GOAR
 
 docker push $IMAGE;
 
-#docker manifest create $IMAGE $IMAGE:amd64 $IMAGE:arm32v6;
-#docker manifest annotate $IMAGE $IMAGE:arm32v6 --os linux --arch arm;
-#docker manifest push $IMAGE;
+docker manifest create $IMAGE $IMAGE:amd64 $IMAGE:arm32v6;
+docker manifest annotate $IMAGE $IMAGE:arm32v6 --os linux --arch arm;
+docker manifest push $IMAGE;
