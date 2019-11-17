@@ -3,12 +3,6 @@
 docker login -u="$QUAY_USER" -p="$QUAY_APIKEY" quay.io;
 
 GO111MODULE=on go mod vendor;
-docker build . -t $IMAGE:amd64 -t $IMAGE:latest   --build-arg opts="CGO_ENABLED=0 GOOS=linux GOARCH=amd64";
-docker build . -t $IMAGE:arm32v6 --build-arg opts="CGO_ENABLED=0 GOOS=linux GOARCH=arm GOARM=6";
 
-docker push $IMAGE;
-
-sudo chmod o+x /etc/docker
-docker manifest create $IMAGE $IMAGE:amd64 $IMAGE:arm32v6;
-docker manifest annotate $IMAGE $IMAGE:arm32v6 --os linux --arch arm;
-docker manifest push $IMAGE;
+docker buildx create --use --name multiplatformbuilder
+docker buildx build -t $IMAGE --platform=linux/arm,linux/arm64,linux/amd64 . --push

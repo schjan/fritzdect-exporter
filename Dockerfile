@@ -1,4 +1,4 @@
-FROM golang:1.12.4 AS build-env
+FROM golang:1.13 AS build-env
 
 # Add namespace here to resolve /vendor dependencies
 ENV NAMESPACE github.com/schjan/fritzdect-exporter
@@ -8,8 +8,7 @@ ADD . ./
 
 ARG version=dev
 
-ARG opts
-RUN env ${opts} go build -v -ldflags "-w -s"  -a -installsuffix cgo -o /exporter main.go
+RUN CGO_ENABLED=0 go build -v -ldflags "-w -s"  -a -installsuffix cgo -o /exporter main.go
 
 
 FROM scratch
