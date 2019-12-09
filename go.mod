@@ -19,7 +19,7 @@ require (
 	github.com/spf13/afero v1.2.2 // indirect
 	github.com/spf13/cobra v0.0.5 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
-	github.com/spf13/viper v1.4.0
+	github.com/spf13/viper v1.6.1
 	github.com/stretchr/testify v1.4.0
 	golang.org/x/net v0.0.0-20190607181551-461777fb6f67 // indirect
 	golang.org/x/sync v0.0.0-20190423024810-112230192c58 // indirect
