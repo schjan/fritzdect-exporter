@@ -1,6 +1,6 @@
 module github.com/schjan/fritzdect-exporter
 
-go 1.12
+go 1.13
 
 require (
 	github.com/coreos/go-semver v0.3.0 // indirect
