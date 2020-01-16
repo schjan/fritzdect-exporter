@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-docker login -u="$QUAY_USER" -p="$QUAY_APIKEY" quay.io;
+docker login -u="$USER" -p="$APIKEY";
 
 GO111MODULE=on go mod vendor;
 

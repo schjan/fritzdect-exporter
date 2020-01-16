@@ -9,7 +9,7 @@ services:
 
 env:
   - DOCKER_CLI_EXPERIMENTAL=enabled
-    IMAGE=quay.io/schjan/fritzdect-exporter
+    IMAGE=schjan/fritzdect-exporter
 
 before_install:
   - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -

@@ -10,10 +10,8 @@ require (
 	github.com/giantswarm/microkit v0.0.0-20190604112702-ae70e65c60f8
 	github.com/giantswarm/micrologger v0.0.0-20190118112544-0926d9b7c541
 	github.com/giantswarm/versionbundle v0.0.0-20190424125133-c91a5899eae8 // indirect
-	github.com/go-logfmt/logfmt v0.4.0 // indirect
 	github.com/gorilla/mux v1.7.2 // indirect
 	github.com/juju/errgo v0.0.0-20140925100237-08cceb5d0b53 // indirect
-	github.com/magiconair/properties v1.8.1 // indirect
 	github.com/pelletier/go-toml v1.4.0 // indirect
 	github.com/prometheus/client_golang v0.9.4
 	github.com/spf13/afero v1.2.2 // indirect
