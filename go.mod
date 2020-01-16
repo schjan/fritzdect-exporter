@@ -4,24 +4,34 @@ go 1.12
 
 require (
 	github.com/coreos/go-semver v0.3.0 // indirect
-	github.com/giantswarm/exporterkit v0.0.0-20190606132835-91937adfdcba
-	github.com/giantswarm/microendpoint v0.0.0-20180904075734-f77c569259ae
-	github.com/giantswarm/microerror v0.0.0-20190605150300-f446cc816a48
-	github.com/giantswarm/microkit v0.0.0-20190604112702-ae70e65c60f8
-	github.com/giantswarm/micrologger v0.0.0-20190118112544-0926d9b7c541
-	github.com/giantswarm/versionbundle v0.0.0-20190424125133-c91a5899eae8 // indirect
-	github.com/gorilla/mux v1.7.2 // indirect
+	github.com/giantswarm/exporterkit v0.0.0-20190619131829-9749deade60f
+	github.com/giantswarm/microendpoint v0.0.0-20191121160659-e991deac2653
+	github.com/giantswarm/microerror v0.0.0-20191011121515-e0ebc4ecf5a5
+	github.com/giantswarm/microkit v0.0.0-20191023091504-429e22e73d3e
+	github.com/giantswarm/micrologger v0.0.0-20191014091141-d866337f7393
+	github.com/giantswarm/versionbundle v0.0.0-20191216214214-0e21f30ed4e6 // indirect
+	github.com/go-logfmt/logfmt v0.5.0 // indirect
+	github.com/google/go-cmp v0.4.0 // indirect
+	github.com/gopherjs/gopherjs v0.0.0-20191106031601-ce3c9ade29de // indirect
+	github.com/gorilla/mux v1.7.3 // indirect
 	github.com/juju/errgo v0.0.0-20140925100237-08cceb5d0b53 // indirect
-	github.com/pelletier/go-toml v1.4.0 // indirect
-	github.com/prometheus/client_golang v0.9.4
+	github.com/kr/pretty v0.2.0 // indirect
+	github.com/pelletier/go-toml v1.6.0 // indirect
+	github.com/prometheus/client_golang v1.3.0
+	github.com/prometheus/common v0.8.0 // indirect
+	github.com/smartystreets/assertions v1.0.1 // indirect
 	github.com/spf13/afero v1.2.2 // indirect
+	github.com/spf13/cast v1.3.1 // indirect
 	github.com/spf13/cobra v0.0.5 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
+	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/spf13/viper v1.6.1
 	github.com/stretchr/testify v1.4.0
-	golang.org/x/net v0.0.0-20190607181551-461777fb6f67 // indirect
-	golang.org/x/sync v0.0.0-20190423024810-112230192c58 // indirect
-	golang.org/x/sys v0.0.0-20190610200419-93c9922d18ae // indirect
+	golang.org/x/net v0.0.0-20200114155413-6afb5195e5aa // indirect
+	golang.org/x/sys v0.0.0-20200116001909-b77594299b42 // indirect
 	golang.org/x/text v0.3.2 // indirect
+	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
+	gopkg.in/ini.v1 v1.51.1 // indirect
 	gopkg.in/resty.v1 v1.12.0
+	gopkg.in/yaml.v2 v2.2.7 // indirect
 )

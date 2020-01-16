@@ -5,6 +5,7 @@ import (
 	"github.com/giantswarm/microendpoint/endpoint/version"
 	"github.com/giantswarm/microerror"
 	"github.com/giantswarm/micrologger"
+
 	"github.com/schjan/fritzdect-exporter/service"
 )
 
@@ -49,9 +50,11 @@ func New(config Config) (*Endpoint, error) {
 
 	var versionEndpoint *version.Endpoint
 	{
-		versionConfig := version.DefaultConfig()
-		versionConfig.Logger = config.Logger
-		versionConfig.Service = config.Service.Version
+		versionConfig := version.Config{
+			Logger:  config.Logger,
+			Service: config.Service.Version,
+		}
+
 		versionEndpoint, err = version.New(versionConfig)
 		if err != nil {
 			return nil, microerror.Mask(err)
