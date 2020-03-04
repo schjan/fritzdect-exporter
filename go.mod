@@ -11,7 +11,6 @@ require (
 	github.com/giantswarm/micrologger v0.0.0-20191014091141-d866337f7393
 	github.com/giantswarm/versionbundle v0.0.0-20191216214214-0e21f30ed4e6 // indirect
 	github.com/go-logfmt/logfmt v0.5.0 // indirect
-	github.com/google/go-cmp v0.4.0 // indirect
 	github.com/gopherjs/gopherjs v0.0.0-20191106031601-ce3c9ade29de // indirect
 	github.com/gorilla/mux v1.7.3 // indirect
 	github.com/juju/errgo v0.0.0-20140925100237-08cceb5d0b53 // indirect
@@ -28,7 +27,6 @@ require (
 	github.com/stretchr/testify v1.5.1
 	golang.org/x/net v0.0.0-20200114155413-6afb5195e5aa // indirect
 	golang.org/x/text v0.3.2 // indirect
-	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
 	gopkg.in/ini.v1 v1.51.1 // indirect
 	gopkg.in/resty.v1 v1.12.0
 	gopkg.in/yaml.v2 v2.2.7 // indirect
