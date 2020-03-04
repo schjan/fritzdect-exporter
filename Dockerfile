@@ -1,4 +1,4 @@
-FROM --platform=$BUILDPLATFORM golang:1.13 AS build
+FROM --platform=$BUILDPLATFORM golang:1.14 AS build
 ARG BUILDPLATFORM
 
 # Add namespace here to resolve /vendor dependencies
