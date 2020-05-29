@@ -3,7 +3,6 @@ module github.com/schjan/fritzdect-exporter
 go 1.14
 
 require (
-	github.com/coreos/go-semver v0.3.0 // indirect
 	github.com/giantswarm/exporterkit v0.0.0-20190619131829-9749deade60f
 	github.com/giantswarm/microendpoint v0.0.0-20191121160659-e991deac2653
 	github.com/giantswarm/microerror v0.0.0-20191011121515-e0ebc4ecf5a5
@@ -24,9 +23,8 @@ require (
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/spf13/viper v1.7.0
-	github.com/stretchr/testify v1.5.1
+	github.com/stretchr/testify v1.6.0
 	golang.org/x/net v0.0.0-20200114155413-6afb5195e5aa // indirect
-	golang.org/x/text v0.3.2 // indirect
 	gopkg.in/ini.v1 v1.51.1 // indirect
 	gopkg.in/resty.v1 v1.12.0
 	gopkg.in/yaml.v2 v2.2.7 // indirect
